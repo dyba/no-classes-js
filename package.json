@@ -1,10 +1,10 @@
 {
   "name": "no-classes-js",
   "version": "0.1.0",
-  "description": "Examples in JavaScript where we don't use classes",
+  "description": "Embrace the prototype",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
