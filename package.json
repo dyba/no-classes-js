@@ -1,0 +1,14 @@
+{
+  "name": "no-classes-js",
+  "version": "0.1.0",
+  "description": "Examples in JavaScript where we don't use classes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "expect.js": "^0.3.1"
+  }
+}
