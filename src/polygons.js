@@ -15,14 +15,14 @@ function Polygon() {
 // traits like any parent would with its children
 Polygon.prototype = Object.freeze({
     copy: function() {
-        return "I copy.";
+        return 'return a copy of the receiver';
     },
     draw: function() {
-        return "I draw.";
+        return 'draw on some display';
     }
 });
 
-var FilledPolygon = function FilledPolygon() {
+function FilledPolygon() {
     var fillPattern = 'fill pattern';
 
     return Object.freeze(Object.create(FilledPolygon.prototype, {
@@ -42,7 +42,21 @@ FilledPolygon.prototype = Object.freeze(Object.create(Polygon.prototype, {
     }
 }));
 
+function Rectangle() {
+    return Object.freeze(Object.create(Rectangle.prototype, {
+    }));
+};
+
+Rectangle.prototype = Object.freeze(Object.create(Polygon.prototype, {
+    draw: {
+        value: function() {
+            return 'I draw rectangle.';
+        }
+    }
+}));
+
 module.exports = {
     Polygon: Polygon,
-    FilledPolygon: FilledPolygon
+    FilledPolygon: FilledPolygon,
+    Rectangle: Rectangle
 }

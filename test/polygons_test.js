@@ -2,63 +2,57 @@ var expect = require('expect.js');
 var PG = require('../src/polygons.js');
 var Polygon = PG.Polygon;
 var FilledPolygon = PG.FilledPolygon;
+var Rectangle = PG.Rectangle;
 
-describe('Polygon prototype', function() {
-    var subject;
+var polygonCopyTraitTest = function(subject) {
+    return function() {
+        expect(subject.copy()).to.equal('return a copy of the receiver');
+    };
+};
 
-    beforeEach(function() {
-        subject = Polygon.prototype
+var polygonTraitBehaviorTests = function(subject) {
+    describe('Polygon Trait behavior', function() {
+        it('can copy', polygonCopyTraitTest(subject));
+
+        it('can draw', function() {
+            expect(subject.draw()).to.equal('draw on some display');
+        });
     });
+};
 
-    it('can copy', function() {
-        expect(subject.copy()).to.equal('I copy.');
+var polygonTraitPropertiesTests = function(subject) {
+    describe('Polygon Trait properties', function() {
+        it('is frozen', function() {
+            expect(Object.isFrozen(subject)).to.be.ok();
+        });
     });
+};
 
-    it('can draw', function() {
-        expect(subject.draw()).to.equal('I draw.');
+var polygonInstanceBehaviorTests = function(subject) {
+    describe('Polygon Instance behavior', function() {
+        it('contains no vertices', function() {
+            expect(subject.vertices()).to.eql([]);
+        });
     });
-});
+};
 
 describe('Polygon instances', function() {
-    var subject;
+    describe('when using the new keyword', function() {
+        polygonTraitBehaviorTests(new Polygon());
+        polygonTraitPropertiesTests(new Polygon());
+        polygonInstanceBehaviorTests(new Polygon());
+    });
 
-    var polygonInstanceTests = function(theSubject) {
-        return function() {
-            beforeEach(function() {
-                subject = theSubject;
-            });
-
-            it('can copy', function() {
-                expect(subject.copy()).to.equal('I copy.');
-            });
-
-            it('can draw', function() {
-                expect(subject.draw()).to.equal('I draw.');
-            });
-
-            it('contains no vertices', function() {
-                expect(subject.vertices()).to.eql([]);
-            });
-
-            it('is frozen', function() {
-                expect(Object.isFrozen(subject)).to.be.ok();
-            });
-        };
-    };
-
-    describe('when using the new keyword', polygonInstanceTests(new Polygon()));
-    describe('when not using the new keyword', polygonInstanceTests(Polygon()));
+    describe('when not using the new keyword', function() {
+        polygonTraitBehaviorTests(Polygon());
+        polygonTraitPropertiesTests(Polygon());
+        polygonInstanceBehaviorTests(Polygon());
+    });
 });
 
 describe('FilledPolygon instances', function() {
-    var subject;
-
-    var filledPolygonInstanceTests = function(theSubject) {
-        return function() {
-            beforeEach(function() {
-                subject = new FilledPolygon();
-            });
-
+    var filledPolygonBehaviorTests = function(subject) {
+        describe('FilledPolygon Instance behavior', function() {
             it('fills when it draws', function() {
                 expect(subject.draw()).to.equal('I draw filled.');
             });
@@ -66,17 +60,38 @@ describe('FilledPolygon instances', function() {
             it('has a fill pattern', function() {
                 expect(subject.fillPattern()).to.equal('fill pattern');
             });
-
-            it('can copy', function() {
-                expect(subject.copy()).to.equal('I copy.');
-            });
-
-            it('is frozen', function() {
-                expect(Object.isFrozen(subject)).to.be.ok();
-            });
-        };
+        })
     };
 
-    describe('when using the new keyword', filledPolygonInstanceTests(new FilledPolygon()));
-    describe('when not using the new keyword', filledPolygonInstanceTests(FilledPolygon()));
+    var selectPolygonTraitBehaviorTests = function(subject) {
+        describe('Polygon Trait behavior', function() {
+            it('can copy', polygonCopyTraitTest(subject));
+        });
+    };
+
+    describe('when using the new keyword', function() {
+        selectPolygonTraitBehaviorTests(new FilledPolygon());
+        filledPolygonBehaviorTests(new FilledPolygon());
+    });
+
+    describe('when not using the new keyword', function() {
+        selectPolygonTraitBehaviorTests(FilledPolygon());
+        filledPolygonBehaviorTests(FilledPolygon());
+    });
+});
+
+describe('Rectangle instances', function() {
+    var selectPolygonTraitBehaviorTests = function(subject) {
+        describe('Polygon Trait behavior', function() {
+            it('can copy', polygonCopyTraitTest(subject));
+        });
+    };
+
+    describe('when using the new keyword', function() {
+        selectPolygonTraitBehaviorTests(new Rectangle());
+    });
+
+    describe('when not using the new keyword', function() {
+        selectPolygonTraitBehaviorTests(Rectangle());
+    });
 });
