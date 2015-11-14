@@ -22,13 +22,6 @@ var polygonTraitBehaviorTests = function(subject) {
     });
 };
 
-var polygonTraitPropertiesTests = function(subject) {
-    describe('Polygon Trait properties', function() {
-        it('is frozen', function() {
-            expect(Object.isFrozen(subject)).to.be.ok();
-        });
-    });
-};
 
 var polygonInstanceBehaviorTests = function(subject) {
     describe('Polygon Instance behavior', function() {
@@ -36,23 +29,12 @@ var polygonInstanceBehaviorTests = function(subject) {
             expect(subject.parent()).to.equal(Polygon.prototype);
         });
 
-        it('can have its data parent changed', function() {
-            newSubject = subject.createWithParent(Rectangle.prototype);
-
-            // WHY???
-            // console.log(Object.getOwnPropertyNames(Rectangle())); => [ 'parent' ]
-            // console.log(Object.getOwnPropertyNames(Object.create(Rectangle.prototype))); => []
-
-            expect(Object.getPrototypeOf(newSubject)).to.equal(Rectangle.prototype);
-            // expect(newSubject.parent()).to.equal(Rectangle.prototype); // Why is this failing?
-        });
-
         it('contains no vertices', function() {
             expect(subject.vertices()).to.eql([]);
         });
 
         it('can have a vertex added', function() {
-            vertex = [1,2];
+            var vertex = [1,2];
 
             subject.addVertex(vertex);
 
@@ -64,13 +46,11 @@ var polygonInstanceBehaviorTests = function(subject) {
 describe('Polygon instances', function() {
     describe('when using the new keyword', function() {
         polygonTraitBehaviorTests(new Polygon());
-        polygonTraitPropertiesTests(new Polygon());
         polygonInstanceBehaviorTests(new Polygon());
     });
 
     describe('when not using the new keyword', function() {
         polygonTraitBehaviorTests(Polygon());
-        polygonTraitPropertiesTests(Polygon());
         polygonInstanceBehaviorTests(Polygon());
     });
 });
@@ -91,7 +71,7 @@ describe('FilledPolygon instances', function() {
             });
 
             it('can have a vertex added', function() {
-                vertex = [1,2];
+                var vertex = [1,2];
 
                 subject.addVertex(vertex);
 
