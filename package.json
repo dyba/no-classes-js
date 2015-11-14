@@ -4,11 +4,17 @@
   "description": "Embrace the prototype",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/isparta cover _mocha"
   },
-  "author": "",
+  "author": "Daniel Dyba <daniel.dyba@gmail.com>",
   "license": "ISC",
   "devDependencies": {
-    "expect.js": "^0.3.1"
+    "babel": "^6.1.18",
+    "babel-cli": "^6.1.18",
+    "chai": "^3.4.1",
+    "codeclimate-test-reporter": "^0.1.1",
+    "expect.js": "^0.3.1",
+    "isparta": "^3.5.3",
+    "istanbul": "^0.4.0"
   }
 }
