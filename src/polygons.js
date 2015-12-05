@@ -1,3 +1,5 @@
+"use strict";
+
 function Polygon() {
     var vertices = [];
 
@@ -51,19 +53,28 @@ FilledPolygon.prototype = Object.create(Polygon.prototype, {
     draw: {
         value: function() {
             return 'draw and fill on some display';
-        }
+        },
+        enumerable: true
     }
 });
 
 function Rectangle() {
-    var self = this instanceof Rectangle ? this : Object.create(Rectangle.prototype);
+    let self = this instanceof Rectangle ? this : Object.create(Rectangle.prototype);
+    var height = 0;
+    var width = 0;
 
-    self.parent = function() {
-        return Object.getPrototypeOf(self);
+    self.height = function() {
+        return height;
     }
-
-    // Add functions left, right, top, bottom
-    // You can't manipulate the vertices directly
+    self.width = function() {
+        return width;
+    }
+    self.setHeight = function(h) {
+        height = h;
+    }
+    self.setWidth = function(w) {
+        width = w;
+    }
 
     return self;
 };
@@ -72,31 +83,33 @@ Rectangle.prototype = Object.create(Polygon.prototype, {
     draw: {
         value: function() {
             return 'draw rectangle efficiently';
-        }
+        },
+        enumerable: true
     },
     vertices: {
         value: function() {
             return 'construct a list from coords';
-        }
+        },
+        enumerable: true
     }
 });
 
 function SmoothPolygon() {
-    var self = this instanceof SmoothPolygon ? this : Object.create(SmoothPolygon.prototype);
+    let self = this instanceof SmoothPolygon ? this : Object.create(SmoothPolygon.prototype);
 
     return self;
 };
 
-SmoothPolygon.prototype = Object.freeze(Object.create(Polygon.prototype, {
+SmoothPolygon.prototype = Object.create(Polygon.prototype, {
     draw: {
         value: function() {
             return 'draw smooth polygon';
         }
     }
-}));
+});
 
 function BoxedPolygon() {
-    var self = this instanceof BoxedPolygon ? this : Object.create(BoxedPolygon.prototype);
+    let self = this instanceof BoxedPolygon ? this : Object.create(BoxedPolygon.prototype);
 
     return self;
 };

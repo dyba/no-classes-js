@@ -120,13 +120,30 @@ describe('Rectangle instances', function() {
         });
     };
 
+    var rectangleInstanceBehaviorTests = function(subject) {
+        describe('Rectangle Instance behavior', function() {
+            it('has zero height', function() {
+                expect(subject.height()).to.equal(0);
+            });
+
+            it('has zero width', function() {
+                expect(subject.width()).to.equal(0);
+            });
+
+            it.skip('can have its height changed', function() {
+            });
+        });
+    };
+
     describe('when using the new keyword', function() {
         selectPolygonTraitBehaviorTests(new Rectangle());
         rectangleTraitBehaviorTests(new Rectangle());
+        rectangleInstanceBehaviorTests(new Rectangle());
     });
 
     describe('when not using the new keyword', function() {
         selectPolygonTraitBehaviorTests(Rectangle());
         rectangleTraitBehaviorTests(Rectangle());
+        rectangleInstanceBehaviorTests(Rectangle());
     });
 });
